@@ -1,0 +1,170 @@
+# ---------------------------------------
+# SYSTÈME / ENVIRONNEMENT
+# ---------------------------------------
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+*.lnk
+Desktop.ini
+
+# Linux
+*~
+
+# ---------------------------------------
+# LOGS
+# ---------------------------------------
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Logs de framework (ex : Rails, Symfony, etc.)
+log/
+logs/
+tmp/
+
+# ---------------------------------------
+# FICHIERS TEMPORAIRES
+# ---------------------------------------
+*.tmp
+*.temp
+*.swp
+*.swo
+*.bak
+*.old
+
+# ---------------------------------------
+# BUILD / COMPILATION
+# ---------------------------------------
+dist/
+build/
+out/
+temp/
+coverage/
+release/
+bin/
+obj/
+target/
+
+# ---------------------------------------
+# DÉPENDANCES
+# ---------------------------------------
+# Node.js
+node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+ENV/
+env/
+build/
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.iml
+*.ipr
+*.iws
+*.class
+
+# Gradle
+.gradle/
+build/
+
+# Maven
+target/
+
+# .NET
+*.user
+*.dbmdl
+*.log
+*.opendb
+*.pdb
+*.mdb
+*.ldf
+*.ds_store
+*.stackdump
+*.ide
+*.suo
+*.sln.cache
+*.ncb
+*.aps
+*.pch
+*.vs/
+.vs/
+*.sln
+project.lock.json
+project.assets.json
+# Fichiers générés par Visual Studio
+Debug/
+Release/
+
+# ---------------------------------------
+# OUTILS / ÉDITEURS
+# ---------------------------------------
+# JetBrains (IntelliJ, PyCharm, WebStorm, etc.)
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Visual Studio Code
+.vscode/
+.history/
+
+# Eclipse
+.metadata/
+*.log
+.settings/
+bin/
+tmp/
+
+# NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+*.nb-gradle/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# ---------------------------------------
+# DIVERS
+# ---------------------------------------
+# En général, on évite de versionner les fichiers de configuration locaux
+.env
+.env.* 
+*.local
+
+# Fichiers de config "secrets"
+*.key
+*.pem
+*.cert
+*.crt
+
+# Annuaires "vendors" (au besoin pour certains projets)
+vendor/
+
+# Cache Symfony ou Laravel, par exemple
+bootstrap/cache/
+storage/
+.env.backup
+
+# Node-RED
+*.project
+
+# ---------------------------------------
+# FIN
+# ---------------------------------------
