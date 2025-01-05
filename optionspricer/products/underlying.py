@@ -91,3 +91,17 @@ class Product:
             .sort_values(by=["Date"], ascending=False)["Close"]
             .head(1)[0]
         )
+
+    @property
+    def get_dividend_yield(self):
+        q = self.ticker.get_info().get("dividendYield")
+        if q is None or q == {}:
+            return self.get_stock_data(historic="1y")[
+                "Dividends"
+            ].sum() / self.get_stock_data(historic="1y")["Close"].sort_index(
+                ascending=False
+            ).head(
+                1
+            )
+        else:
+            return q

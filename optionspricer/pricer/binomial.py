@@ -8,6 +8,7 @@ class BinomialPricer:
         K: int | float,
         r: float,
         T: float,
+        q: float,
         sigma: float,
         N: int,
         option_type: str,
@@ -24,6 +25,7 @@ class BinomialPricer:
         K             : prix d'exercice (strike)
         r             : taux sans risque (en décimal, ex : 0.03 pour 3%)
         T             : temps jusqu’à l’échéance (en années)
+        q             : dividend yield annualized
         sigma         : volatilité (en décimal)
         N             : nombre d'étapes dans l'arbre binomial.
                         On peut augmenter le nombre d’étapes N pour améliorer la précision.
@@ -35,13 +37,15 @@ class BinomialPricer:
         --------
         La valeur de l'option au temps 0 (prix théorique).
         """
+        if q is None:
+            q=0
         # Paramètres de la recombinaison binomiale
         dt = T / N
         u = math.exp(sigma * math.sqrt(dt))  # facteur de hausse
         d = math.exp(-sigma * math.sqrt(dt))  # facteur de baisse
 
 #--> rajout possible du dividend yield --> (math.exp((r - y) * dt) - d)/(u - d)
-        p = (math.exp(r * dt) - d) / (u - d)  # prob. risque neutre (risk-neutral)
+        p = (math.exp((r - q) * dt) - d) / (u - d)  # prob. risque neutre (risk-neutral)
         q = 1 - p
         # Tableaux pour stocker les prix du sous-jacent et l'option
         stock_prices = [0] * (N + 1)

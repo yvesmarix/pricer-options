@@ -2,7 +2,7 @@ import numpy as np
 
 class MonteCarlo:
 
-    def pricer(S, K, T, r, sigma, n_simulations, option_type='call'):
+    def pricer(S, K, T, r, q, sigma, n_simulations, option_type='call'):
         """
         Monte Carlo simulation for European option pricing.
         
@@ -11,6 +11,7 @@ class MonteCarlo:
         - K: float, strike price of the option
         - T: float, time to maturity in years
         - r: float, annual risk-free rate
+        - q: float, annualized dividend yield
         - sigma: float, volatility of the underlying asset
         - n_simulations: int, number of Monte Carlo simulations
         - option_type: str, 'call' or 'put'
@@ -18,9 +19,11 @@ class MonteCarlo:
         Returns:
         - float, estimated option price
         """
+        if q is None:
+            q=0
         # Generate random price paths using Geometric Brownian Motion
         z = np.random.standard_normal(n_simulations)
-        ST = S * np.exp((r - 0.5 * sigma**2) * T + sigma * np.sqrt(T) * z)
+        ST = S * np.exp((r - q - 0.5 * sigma**2) * T + sigma * np.sqrt(T) * z)
         
         # Calculate the payoff
         if option_type == 'call':

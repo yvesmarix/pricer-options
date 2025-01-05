@@ -6,7 +6,17 @@ class BlackScholesPricer:
     def __init__(self):
         self.N = norm.cdf
 
-    def price(self, S, K, T, r, sigma, option_type, style):
+    def price(
+        self,
+        S: int | float,
+        K: int | float,
+        T: float,
+        r: float,
+        q: float,
+        sigma: float,
+        option_type: str,
+        style: str,
+    ):
         """
         Calculate option price using Black-Scholes formula
 
@@ -20,6 +30,7 @@ class BlackScholesPricer:
             Time to maturity (in years)
         r : float
             Risk-free rate (annual)
+        q : dividend yield annualized
         sigma : float
             Volatility (annual)
         option_type : str
@@ -38,19 +49,32 @@ class BlackScholesPricer:
             # Ensure T is positive
             T = max(T, 1e-10)  # Avoid division by zero
 
-            d1 = (np.log(S / K) + (r + sigma**2 / 2) * T) / (sigma * np.sqrt(T))
+            d1 = (np.log(S / K) + (r - q + sigma**2 / 2) * T) / (sigma * np.sqrt(T))
             d2 = d1 - sigma * np.sqrt(T)
 
             if option_type.lower() == "call":
-                price = S * self.N(d1) - K * np.exp(-r * T) * self.N(d2)
+                price = S * np.exp(-q * T) * self.N(d1) - K * np.exp(-r * T) * self.N(
+                    d2
+                )
             elif option_type.lower() == "put":
-                price = K * np.exp(-r * T) * self.N(-d2) - S * self.N(-d1)
+                price = K * np.exp(-r * T) * self.N(-d2) - S * np.exp(-q * T) * self.N(
+                    -d1
+                )
             else:
                 raise ValueError("option_type must be 'call' or 'put'")
 
         return price
+
     @staticmethod
-    def calculate_greeks(S, K, T, r, sigma, option_type="call"):
+    def calculate_greeks(
+        S: int | float,
+        K: int | float,
+        T: float,
+        r: float,
+        q: float,
+        sigma: float,
+        option_type="call",
+    ):
         """
         Calculate option Greeks
 
@@ -58,7 +82,10 @@ class BlackScholesPricer:
         --------
         dict : Dictionary containing all Greeks
         """
-        d1 = (np.log(S / K) + (r + (sigma**2) / 2) * T) / (sigma * np.sqrt(T))
+        if q is None:
+            q = 0
+
+        d1 = (np.log(S / K) + (r - q + (sigma**2) / 2) * T) / (sigma * np.sqrt(T))
         d2 = d1 - sigma * np.sqrt(T)
 
         # Calculate normal probability density
